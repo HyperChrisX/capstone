@@ -1,0 +1,8 @@
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^login\.saltness\-software\.info$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.login\.saltness\-software\.info$
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^/?$ "http\:\/\/saltness\-software\.info\/login_system_template" [R=301,L]
+

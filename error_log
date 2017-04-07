@@ -1,0 +1,14 @@
+[24-Mar-2017 13:10:36 America/New_York] PHP Parse error:  syntax error, unexpected '$password' (T_VARIABLE), expecting ',' or ')' in /home/saltness/capstone.saltness-software.info/authenticate.php on line 31
+[24-Mar-2017 13:33:24 America/New_York] PHP Notice:  Use of undefined constant db - assumed 'db' in /home/saltness/capstone.saltness-software.info/database-config.php on line 11
+[24-Mar-2017 13:36:34 America/New_York] PHP Notice:  Use of undefined constant db - assumed 'db' in /home/saltness/capstone.saltness-software.info/database-config.php on line 11
+[24-Mar-2017 13:36:34 America/New_York] PHP Warning:  password_hash() expects at least 2 parameters, 1 given in /home/saltness/capstone.saltness-software.info/signup.php on line 12
+[24-Mar-2017 14:00:06 America/New_York] PHP Notice:  Use of undefined constant db - assumed 'db' in /home/saltness/capstone.saltness-software.info/database-config.php on line 11
+[24-Mar-2017 14:15:01 America/New_York] PHP Notice:  Use of undefined constant db - assumed 'db' in /home/saltness/capstone.saltness-software.info/database-config.php on line 11
+[24-Mar-2017 14:15:06 America/New_York] PHP Notice:  Use of undefined constant db - assumed 'db' in /home/saltness/capstone.saltness-software.info/database-config.php on line 11
+[24-Mar-2017 14:15:06 America/New_York] PHP Warning:  password_hash() expects at least 2 parameters, 1 given in /home/saltness/capstone.saltness-software.info/authenticate.php on line 13
+[24-Mar-2017 14:15:06 America/New_York] PHP Notice:  Undefined index: id in /home/saltness/capstone.saltness-software.info/authenticate.php on line 39
+[24-Mar-2017 14:15:06 America/New_York] PHP Notice:  Undefined index: role in /home/saltness/capstone.saltness-software.info/authenticate.php on line 41
+[24-Mar-2017 14:15:16 America/New_York] PHP Notice:  Undefined index: sess_userrole in /home/saltness/capstone.saltness-software.info/userhome.php on line 3
+[24-Mar-2017 14:15:16 America/New_York] PHP Notice:  Undefined index: sess_username in /home/saltness/capstone.saltness-software.info/userhome.php on line 41
+[24-Mar-2017 14:15:17 America/New_York] PHP Notice:  Undefined index: sess_userrole in /home/saltness/capstone.saltness-software.info/userhome.php on line 3
+[24-Mar-2017 14:15:17 America/New_York] PHP Notice:  Undefined index: sess_username in /home/saltness/capstone.saltness-software.info/userhome.php on line 41
