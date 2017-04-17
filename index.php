@@ -20,6 +20,7 @@
           <div class="col-md-12">
             <h1>Welcome to page!</h1>
             <h2 class="text-muted"> Please sign-up or login. </h2>
+			<p> This is a test in index.php </p>
           </div>
         </div>
         <div class="row">
