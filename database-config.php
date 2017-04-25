@@ -1,9 +1,9 @@
 <?php 
 //define database related variables
 	$host = 'localhost';
-	$user = 'saltness_suadman';
-	$pass = '$implePa$$word';
-	$database = 'saltness_capstone_userbase';
+	$user = 'root';
+	$pass = '';
+	$database = 'capstone';
 	
 //try to connect to database
 $db = new PDO('mysql:host='.$host.'; dbname='.$database, $user, $pass);
