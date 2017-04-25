@@ -7,12 +7,12 @@
 				 $username = $_POST['username'];
 				 $password = $_POST['password'];
 				 $conf_pass = $_POST['passwordCon'];
-				 $email = $_POST['emailID'];
+				 $email = $_POST['email'];
                  $phone = $_POST['phone'];
 				 
 				 /*echo "<html><head></head><body>".$username."<br />".$password."<br />".$conf_pass."<br />".$phone."<br />".$email."<br />".$enc_pass."<br /></body></html>"; */
 				 
-				 if($password!=$conf_pass)
+				 if($password!=$conf_pass)
 				 {
 					 header('location: signup_home.php?err=1');
 				 }
@@ -23,7 +23,7 @@
 				 else
 				 {
 					 $enc_pass = password_hash($password, PASSWORD_DEFAULT);
-					 $insQuery = $db->prepare("INSERT INTO users (username, password, phone, email) VALUES ('$username', '$enc_pass', '$phone', '$email') ");
+					 $insQuery = $db->prepare("INSERT INTO caps (username, password, phone, email) VALUES ('$username', '$enc_pass', '$phone', '$email') ");
 				 	 $insQuery->execute(); 
 				 	 header('location: login_home.php?err=0'); 
 				 }

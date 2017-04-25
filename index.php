@@ -5,20 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Role based Login System</title>
-
+	<style>
+		body{
+			background: url(img/dell.jpg);
+		}
+		button:hover{
+			background-color: red;
+		}
+	</style>
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-
   </head>
-
 <body>
 <?php include("nav.php"); ?>
     <div class="container">
       <div class="info">
         <div class="row">
           <div class="col-md-12">
-            <h1>Welcome to page!</h1>
+            <h1 style="font-size:50px; color: white;"> DELL</h1>
             <h2 class="text-muted"> Please sign-up or login. </h2>
           </div>
         </div>
