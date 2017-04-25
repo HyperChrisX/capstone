@@ -1,0 +1,19 @@
+.navbar-change{
+	background-color: black;
+}
+
+.user{
+	border-style: 0px solid;
+	background-color: #505050;
+	width: 100%;
+	color: white;
+} 
+body{
+	background-color: #303030;
+}
+.record,thead{
+	color: white;
+}
+.form-container{
+	margin-left: 13%;
+}

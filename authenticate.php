@@ -14,7 +14,7 @@ if(isset($_POST['password']))
 }
 
 // Check whether entered username pass combo exist in database
-$q = 'SELECT * FROM users WHERE username=:username';
+$q = 'SELECT * FROM caps WHERE username=:username';
 $query = $db->prepare($q);
 $query->execute(array(':username' => $username));
 
