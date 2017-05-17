@@ -4,19 +4,22 @@ $role = $_SESSION['sess_userrole'];
 
 if(!isset($_SESSION['sess_username']) && $role != "User")
 {
-	header('location: index.php?err=2');	
+	header('location: login_home.php?err=2');	
 }
-?>
-<?php include('database-config.php');
-		$result = $db->prepare(" SELECT users.id
-								, users.ProjectName
-								, users.Indate
-								, users.comment
-								 FROM caps
-								 INNER JOIN users 
-								 ON caps.username = users.username
-								 WHERE users.username ='"	.	$_SESSION['sess_username']. "'");
-		$result->execute();
+
+else
+{
+    include('database-config.php');
+    $result = $db->prepare(" SELECT users.id
+                                    , users.ProjectName
+                                    , users.Indate
+                                    , users.comment
+                                    FROM caps
+                                    INNER JOIN users 
+                                    ON caps.username = users.username
+                                    WHERE users.username ='"	.	$_SESSION['sess_username']. "'");
+    $result->execute();
+}
 ?>
 <!DOCTYPE html> 
 <!-- HTML entities for Page Display -->
@@ -32,28 +35,8 @@ if(!isset($_SESSION['sess_username']) && $role != "User")
 	<link href="css/userhome.css" rel="stylesheet">
   </head>
   <body>
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-	<div class="navbar-change">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="http://techyari.in"></a>
-        </div>
-
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><?php echo $_SESSION['sess_username'];?></a></li>
-            <li><a href="logout.php">Logout</a></li>
-          </ul>
-        </div>
-      </div>
-	  </div>
-    </div>
+    
+    <?php include("nav_login.php"); ?>
 
     <div class="container homepage">
 		<div class="user">
@@ -66,46 +49,143 @@ if(!isset($_SESSION['sess_username']) && $role != "User")
 			</div>
 		</div>
     </div>    
-	<div class="form-container">
-	<table border="1" cellspacing="0" cellpadding="4" >
-	
-	<thead>
-		<tr>
-			<th> NumberID </th>
-			<th> ProjectName </th>
-			<th> IN-DATE </th>
-			<th> Comments </th>
-		</tr>
-	</thead>
-		<form name="" method="post" action="zip_download.php">
-		<?php
-			while($row=$result->fetch(PDO::FETCH_ASSOC))
-			{ 
-				?>
-						<tr class="record">
-								<td><?php echo $row['id']; ?></td>
-								<td><?php echo $row['ProjectName']; ?></td>
-								<td><?php echo $row['Indate']; ?></td>
-								<td><?php echo $row['comment']; ?></td>
-							<!--<a href="edit.php?id=<?php echo $row['id']; ?>"> edit </a>&nbsp;
-							| &nbsp; <a href="delete.php?id=<?php echo $row['id']; ?>"> delete </a></td>
-							<td>
-								<a href = "download.php?filename=<?php echo $filename; ?>" >
-								<img src="files/download-icon.png" align="left" width="28" height="28"/>
-								</a>
-							</td>-->
-						</tr>
-		<?php } ?>
-				</br></br>
-				<tr>
-					<td colspan="4" align="center">
-						<input type="submit" name="download_zip" value="Download">
-							&nbsp; 
-						<input type="reset" value="reset">
-					</td>
-				</tr>
-		</form>
-	</div>
+	<div class="container">
+
+            <div class="row">
+
+                <div class="col-lg-12 text-center">
+
+                <?php
+
+                      //Associative array to display errors
+
+                        $errors = array( 0=>"Service scheduled successfully, you may edit or remove it below.",
+
+									   	 1=>"Duplicate service attempted. Please check below.",
+
+										 2=>"Service status changed successfully.");
+
+                                
+
+                      //Get the error_id from URL
+
+                      if(isset($_GET['err']))
+
+                      {
+
+                        $error_id = $_GET['err'];
+
+                        if($error_id == 0)
+
+                        {
+
+                          echo'<p class="text-warning">'.$errors[$error_id].'</p>';	
+
+                        }
+
+                        if($error_id == 1)
+
+                        {
+
+                          echo'<p class="text-danger">'.$errors[$error_id].'</p>';	
+
+                        }
+
+                        if($error_id == 2)
+
+                        {
+
+                          echo'<p class="text-danger">'.$errors[$error_id].'</p>';
+
+                        }
+
+                      }
+
+                      ?>
+
+                    <h2>Your current schedule:</h2>
+
+                </div>
+
+            </div>
+            <div class="row">
+                <br />
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <td>Date Scheduled</td>
+                                    <td>Part/Service for install</td>
+                                    <td>Cost*</td>
+                                    <td>Completed?</td>
+                                    <td>Edit|Delete</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    #Populate Table
+                                    /*Create Arrays*/
+                                    $current_user = $_SESSION["sess_user_id"];
+                                    $query = $db->prepare("SELECT * FROM APPT_SCHEDULE WHERE USER_ID = '$current_user'");
+                                    $query -> execute();
+                                
+                                    while($data = $query->fetch(PDO::FETCH_ASSOC))
+                                    { 
+                                        $date = $data['DATE_TIME'];
+                                        $sched_id = $data['SCHED_ID'];
+
+                                        $part = $data['PART_ID'];
+                                        $part_match = $db->prepare("SELECT * FROM PARTS WHERE PART_ID = '$part'");
+                                        $part_match -> execute();
+                                        $part_return = $part_match->fetch(PDO::FETCH_ASSOC);
+
+                                        $part_name = $part_return['PART'];
+                                        $part_cost = $part_return['COST'];
+
+                                        if($completed = $data['COMPLETE'] == 'Y')
+				                        {
+                                            $completed = "Complete";
+                                        }
+                                        elseif($completed = $data['COMPLETE'] == 'N')
+                                        {
+                                            $completed = "Incomplete";
+                                        }
+                                    ?>
+                                    <tr <?php if(isset($_GET['err']) && $_GET['err']==1 && $_GET['sched']==$sched_id)
+                                              { 
+                                                  echo "class='danger'"; 
+                                              } 
+                                              elseif(isset($_GET['err']) && ($_GET['err']==0 || $_GET['err']==2) && $_GET['sched']==$sched_id)
+                                              {
+                                                  echo 'class="success"';
+                                              }
+                                        ?>>
+                                        <td><?php echo $date; ?></td>
+                                        <td><?php echo $part_name; ?></td>
+                                        <td><?php echo money_format('%.2n', $part_cost); ?></td>
+                                        <td><?php echo $completed; ?></td>
+                                        <td>
+                                            <div class="btn-group btn-group-md">
+                                                    <?php 
+                                                    
+                                                        $editjs = "window.location.href='editAppt.php?sched=$sched_id'"; 
+                                                        $remjs = "window.location.href='deletePart.php?sched=$sched_id'"; 
+                                                    
+                                                    ?>
+                                                    <button type='button' class='btn btn-primary' onclick="<?php echo $editjs; ?>">Change</button>
+                                                    <button type='button' class='btn btn-danger' onclick="<?php echo $remjs; ?>">Cancel</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                  <?php  }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>     
+                </div>
+            </div>
+
+        </div>
 	
 	
 	
