@@ -1,0 +1,17 @@
+<?php 
+//define database related variables
+	$host = 'localhost';
+	$user = 'root';
+	$pass = '';
+	$database = 'capstone';
+	
+//try to connect to database
+$db = new PDO('mysqlhost='.$host.'; dbname='.$database, $user, $pass);
+
+if(!db)
+{
+	echo "unable to connect to database";
+}
+
+//End config
+?>
