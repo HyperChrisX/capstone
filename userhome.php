@@ -10,15 +10,7 @@ if(!isset($_SESSION['sess_username']) && $role != "User")
 else
 {
     include('database-config.php');
-    $result = $db->prepare(" SELECT users.id
-                                    , users.ProjectName
-                                    , users.Indate
-                                    , users.comment
-                                    FROM caps
-                                    INNER JOIN users 
-                                    ON caps.username = users.username
-                                    WHERE users.username ='"	.	$_SESSION['sess_username']. "'");
-    $result->execute();
+    
 }
 ?>
 <!DOCTYPE html> 
@@ -114,10 +106,10 @@ else
                         <table class="table table-hover table-striped">
                             <thead>
                                 <tr>
-                                    <td>Date Scheduled</td>
-                                    <td>Part/Service for install</td>
-                                    <td>Cost*</td>
-                                    <td>Completed?</td>
+                                    <td>ID</td>
+                                    <td>Project Name</td>
+                                    <td>Indate</td>
+                                    <td>Comment</td>
                                     <td>Edit|Delete</td>
                                 </tr>
                             </thead>
@@ -125,31 +117,24 @@ else
                                 <?php
                                     #Populate Table
                                     /*Create Arrays*/
-                                    $current_user = $_SESSION["sess_user_id"];
-                                    $query = $db->prepare("SELECT * FROM APPT_SCHEDULE WHERE USER_ID = '$current_user'");
-                                    $query -> execute();
+                                    $current_user = $_SESSION["sess_username"];
+                                    $result = $db->prepare(" SELECT users.id
+                                                                    , users.ProjectName
+                                                                    , users.Indate
+                                                                    , users.comment
+                                                                    FROM caps
+                                                                    INNER JOIN users 
+                                                                    ON caps.username = users.username
+                                                                    WHERE users.username ='"	.	$current_user. "'");
+                                    $result->execute();
                                 
-                                    while($data = $query->fetch(PDO::FETCH_ASSOC))
+                                    while($data = $result->fetch(PDO::FETCH_ASSOC))
                                     { 
-                                        $date = $data['DATE_TIME'];
-                                        $sched_id = $data['SCHED_ID'];
+                                        $proj_indate = $data['Indate'];
+                                        $proj_id = $data['id'];
+                                        $proj_name = $data['ProjectName'];
+                                        $proj_comment = $data['comment'];
 
-                                        $part = $data['PART_ID'];
-                                        $part_match = $db->prepare("SELECT * FROM PARTS WHERE PART_ID = '$part'");
-                                        $part_match -> execute();
-                                        $part_return = $part_match->fetch(PDO::FETCH_ASSOC);
-
-                                        $part_name = $part_return['PART'];
-                                        $part_cost = $part_return['COST'];
-
-                                        if($completed = $data['COMPLETE'] == 'Y')
-				                        {
-                                            $completed = "Complete";
-                                        }
-                                        elseif($completed = $data['COMPLETE'] == 'N')
-                                        {
-                                            $completed = "Incomplete";
-                                        }
                                     ?>
                                     <tr <?php if(isset($_GET['err']) && $_GET['err']==1 && $_GET['sched']==$sched_id)
                                               { 
@@ -160,10 +145,10 @@ else
                                                   echo 'class="success"';
                                               }
                                         ?>>
-                                        <td><?php echo $date; ?></td>
-                                        <td><?php echo $part_name; ?></td>
-                                        <td><?php echo money_format('%.2n', $part_cost); ?></td>
-                                        <td><?php echo $completed; ?></td>
+                                        <td><?php echo $proj_id; ?></td>
+                                        <td><?php echo $proj_name; ?></td>
+                                        <td><?php echo $proj_indate; ?></td>
+                                        <td><?php echo $proj_comment; ?></td>
                                         <td>
                                             <div class="btn-group btn-group-md">
                                                     <?php 
@@ -173,7 +158,7 @@ else
                                                     
                                                     ?>
                                                     <button type='button' class='btn btn-primary' onclick="<?php echo $editjs; ?>">Change</button>
-                                                    <button type='button' class='btn btn-danger' onclick="<?php echo $remjs; ?>">Cancel</button>
+                                                    <button type='button' class='btn btn-danger' onclick="<?php echo $remjs; ?>">Delete</button>
                                             </div>
                                         </td>
                                     </tr>
