@@ -22,7 +22,7 @@ else
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> Users Page </title>
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 	<link href="css/userhome.css" rel="stylesheet">
   </head>
@@ -51,7 +51,7 @@ else
 
                       //Associative array to display errors
 
-                        $errors = array( 0=>"Service scheduled successfully, you may edit or remove it below.",
+                        $errors = array( 0=>"Project added successfully, you may edit or remove it below.",
 
 									   	 1=>"Duplicate service attempted. Please check below.",
 
@@ -94,9 +94,6 @@ else
                       }
 
                       ?>
-
-                    <h2>Your current schedule:</h2>
-
                 </div>
 
             </div>
@@ -136,11 +133,11 @@ else
                                         $proj_comment = $data['comment'];
 
                                     ?>
-                                    <tr <?php if(isset($_GET['err']) && $_GET['err']==1 && $_GET['sched']==$sched_id)
+                                    <tr <?php if(isset($_GET['err']) && $_GET['err']==1 && $_GET['id']==$proj_id)
                                               { 
                                                   echo "class='danger'"; 
                                               } 
-                                              elseif(isset($_GET['err']) && ($_GET['err']==0 || $_GET['err']==2) && $_GET['sched']==$sched_id)
+                                              elseif(isset($_GET['err']) && ($_GET['err']==0 || $_GET['err']==2) && $_GET['id']==$proj_id)
                                               {
                                                   echo 'class="success"';
                                               }
@@ -153,8 +150,8 @@ else
                                             <div class="btn-group btn-group-md">
                                                     <?php 
                                                     
-                                                        $editjs = "window.location.href='editAppt.php?sched=$sched_id'"; 
-                                                        $remjs = "window.location.href='deletePart.php?sched=$sched_id'"; 
+                                                        $editjs = "window.location.href='add_edit.php?id=$proj_id'"; 
+                                                        $remjs = "window.location.href='add_edit.php?remid=$proj_id'"; 
                                                     
                                                     ?>
                                                     <button type='button' class='btn btn-primary' onclick="<?php echo $editjs; ?>">Change</button>

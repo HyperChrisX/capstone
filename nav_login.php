@@ -12,8 +12,11 @@
         </div>
 
         <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-left">
+            <li><a href="add_edit.php">Add a project</a></li>
+          </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><?php echo $_SESSION['sess_username'];?></a></li>
+            <li><a href="userhome.php"><?php echo $_SESSION['sess_username'];?></a></li>
             <li><a href="logout.php">Logout</a></li>
           </ul>
         </div>

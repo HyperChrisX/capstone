@@ -1,3 +1,10 @@
+<?php
+session_start();
+if(isset($_SESSION["sess_user_id"]))
+{
+  header("location: index.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,7 +14,7 @@
     <title>Role based Login System</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 	<style>
 		body{

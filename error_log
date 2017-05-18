@@ -12,3 +12,52 @@
 [24-Mar-2017 14:15:16 America/New_York] PHP Notice:  Undefined index: sess_username in /home/saltness/capstone.saltness-software.info/userhome.php on line 41
 [24-Mar-2017 14:15:17 America/New_York] PHP Notice:  Undefined index: sess_userrole in /home/saltness/capstone.saltness-software.info/userhome.php on line 3
 [24-Mar-2017 14:15:17 America/New_York] PHP Notice:  Undefined index: sess_username in /home/saltness/capstone.saltness-software.info/userhome.php on line 41
+[16-May-2017 23:28:07 America/New_York] PHP Notice:  Undefined index: sess_userrole in /home/saltness/capstone.saltness-software.info/userhome.php on line 3
+[16-May-2017 23:28:07 America/New_York] PHP Fatal error:  Uncaught PDOException: SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: NO) in /home/saltness/capstone.saltness-software.info/database-config.php:9
+Stack trace:
+#0 /home/saltness/capstone.saltness-software.info/database-config.php(9): PDO->__construct('mysql:host=loca...', 'root', '')
+#1 /home/saltness/capstone.saltness-software.info/userhome.php(10): include('/home/saltness/...')
+#2 {main}
+  thrown in /home/saltness/capstone.saltness-software.info/database-config.php on line 9
+[17-May-2017 13:01:10 America/New_York] PHP Notice:  Use of undefined constant db - assumed 'db' in /home/saltness/capstone.saltness-software.info/database-config.php on line 11
+[17-May-2017 13:01:38 America/New_York] PHP Notice:  Use of undefined constant db - assumed 'db' in /home/saltness/capstone.saltness-software.info/database-config.php on line 11
+[17-May-2017 13:01:47 America/New_York] PHP Notice:  Use of undefined constant db - assumed 'db' in /home/saltness/capstone.saltness-software.info/database-config.php on line 11
+[17-May-2017 13:01:47 America/New_York] PHP Warning:  password_hash() expects at least 2 parameters, 1 given in /home/saltness/capstone.saltness-software.info/authenticate.php on line 13
+[17-May-2017 13:01:47 America/New_York] PHP Notice:  Undefined index: role in /home/saltness/capstone.saltness-software.info/authenticate.php on line 41
+[17-May-2017 13:01:47 America/New_York] PHP Notice:  Use of undefined constant db - assumed 'db' in /home/saltness/capstone.saltness-software.info/database-config.php on line 11
+[17-May-2017 13:03:21 America/New_York] PHP Notice:  Use of undefined constant db - assumed 'db' in /home/saltness/capstone.saltness-software.info/database-config.php on line 11
+[17-May-2017 13:29:33 America/New_York] PHP Notice:  Use of undefined constant db - assumed 'db' in /home/saltness/capstone.saltness-software.info/database-config.php on line 11
+[17-May-2017 13:29:48 America/New_York] PHP Notice:  Use of undefined constant db - assumed 'db' in /home/saltness/capstone.saltness-software.info/database-config.php on line 11
+[17-May-2017 14:28:02 America/New_York] PHP Notice:  Use of undefined constant db - assumed 'db' in /home/saltness/capstone.saltness-software.info/database-config.php on line 11
+[17-May-2017 14:28:02 America/New_York] PHP Warning:  password_hash() expects at least 2 parameters, 1 given in /home/saltness/capstone.saltness-software.info/authenticate.php on line 13
+[17-May-2017 14:28:03 America/New_York] PHP Notice:  Undefined index: role in /home/saltness/capstone.saltness-software.info/authenticate.php on line 41
+[17-May-2017 14:28:03 America/New_York] PHP Notice:  Use of undefined constant db - assumed 'db' in /home/saltness/capstone.saltness-software.info/database-config.php on line 11
+[17-May-2017 19:51:11 America/New_York] PHP Notice:  Use of undefined constant db - assumed 'db' in /home/saltness/capstone.saltness-software.info/database-config.php on line 11
+[17-May-2017 19:51:11 America/New_York] PHP Warning:  password_hash() expects at least 2 parameters, 1 given in /home/saltness/capstone.saltness-software.info/authenticate.php on line 25
+[17-May-2017 19:51:11 America/New_York] PHP Notice:  Use of undefined constant db - assumed 'db' in /home/saltness/capstone.saltness-software.info/database-config.php on line 11
+[17-May-2017 19:51:37 America/New_York] PHP Notice:  Use of undefined constant db - assumed 'db' in /home/saltness/capstone.saltness-software.info/database-config.php on line 11
+[17-May-2017 19:51:38 America/New_York] PHP Warning:  include(database-conf.php): failed to open stream: No such file or directory in /home/saltness/capstone.saltness-software.info/add_edit.php on line 4
+[17-May-2017 19:51:38 America/New_York] PHP Warning:  include(): Failed opening 'database-conf.php' for inclusion (include_path='.:/opt/alt/php70/usr/share/pear') in /home/saltness/capstone.saltness-software.info/add_edit.php on line 4
+[17-May-2017 19:52:50 America/New_York] PHP Warning:  include(database-conf.php): failed to open stream: No such file or directory in /home/saltness/capstone.saltness-software.info/add_edit.php on line 4
+[17-May-2017 19:52:50 America/New_York] PHP Warning:  include(): Failed opening 'database-conf.php' for inclusion (include_path='.:/opt/alt/php70/usr/share/pear') in /home/saltness/capstone.saltness-software.info/add_edit.php on line 4
+[17-May-2017 19:55:41 America/New_York] PHP Warning:  include(database-conf.php): failed to open stream: No such file or directory in /home/saltness/capstone.saltness-software.info/add_edit.php on line 4
+[17-May-2017 19:55:41 America/New_York] PHP Warning:  include(): Failed opening 'database-conf.php' for inclusion (include_path='.:/opt/alt/php70/usr/share/pear') in /home/saltness/capstone.saltness-software.info/add_edit.php on line 4
+[17-May-2017 19:55:57 America/New_York] PHP Warning:  include(database-conf.php): failed to open stream: No such file or directory in /home/saltness/capstone.saltness-software.info/add_edit.php on line 4
+[17-May-2017 19:55:57 America/New_York] PHP Warning:  include(): Failed opening 'database-conf.php' for inclusion (include_path='.:/opt/alt/php70/usr/share/pear') in /home/saltness/capstone.saltness-software.info/add_edit.php on line 4
+[17-May-2017 19:56:52 America/New_York] PHP Warning:  include(database-conf.php): failed to open stream: No such file or directory in /home/saltness/capstone.saltness-software.info/add_edit.php on line 4
+[17-May-2017 19:56:52 America/New_York] PHP Warning:  include(): Failed opening 'database-conf.php' for inclusion (include_path='.:/opt/alt/php70/usr/share/pear') in /home/saltness/capstone.saltness-software.info/add_edit.php on line 4
+[17-May-2017 19:57:28 America/New_York] PHP Warning:  include(database-conf.php): failed to open stream: No such file or directory in /home/saltness/capstone.saltness-software.info/add_edit.php on line 4
+[17-May-2017 19:57:28 America/New_York] PHP Warning:  include(): Failed opening 'database-conf.php' for inclusion (include_path='.:/opt/alt/php70/usr/share/pear') in /home/saltness/capstone.saltness-software.info/add_edit.php on line 4
+[17-May-2017 19:58:18 America/New_York] PHP Warning:  include(database-conf.php): failed to open stream: No such file or directory in /home/saltness/capstone.saltness-software.info/add_edit.php on line 4
+[17-May-2017 19:58:18 America/New_York] PHP Warning:  include(): Failed opening 'database-conf.php' for inclusion (include_path='.:/opt/alt/php70/usr/share/pear') in /home/saltness/capstone.saltness-software.info/add_edit.php on line 4
+[17-May-2017 19:58:53 America/New_York] PHP Warning:  include(database-conf.php): failed to open stream: No such file or directory in /home/saltness/capstone.saltness-software.info/add_edit.php on line 4
+[17-May-2017 19:58:53 America/New_York] PHP Warning:  include(): Failed opening 'database-conf.php' for inclusion (include_path='.:/opt/alt/php70/usr/share/pear') in /home/saltness/capstone.saltness-software.info/add_edit.php on line 4
+[17-May-2017 19:59:07 America/New_York] PHP Warning:  include(database-conf.php): failed to open stream: No such file or directory in /home/saltness/capstone.saltness-software.info/add_edit.php on line 4
+[17-May-2017 19:59:07 America/New_York] PHP Warning:  include(): Failed opening 'database-conf.php' for inclusion (include_path='.:/opt/alt/php70/usr/share/pear') in /home/saltness/capstone.saltness-software.info/add_edit.php on line 4
+[17-May-2017 19:59:07 America/New_York] PHP Notice:  Undefined variable: db in /home/saltness/capstone.saltness-software.info/add_edit.php on line 34
+[17-May-2017 19:59:07 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/saltness/capstone.saltness-software.info/add_edit.php:34
+Stack trace:
+#0 {main}
+  thrown in /home/saltness/capstone.saltness-software.info/add_edit.php on line 34
+[17-May-2017 19:59:10 America/New_York] PHP Warning:  include(database-conf.php): failed to open stream: No such file or directory in /home/saltness/capstone.saltness-software.info/add_edit.php on line 4
+[17-May-2017 19:59:10 America/New_York] PHP Warning:  include(): Failed opening 'database-conf.php' for inclusion (include_path='.:/opt/alt/php70/usr/share/pear') in /home/saltness/capstone.saltness-software.info/add_edit.php on line 4

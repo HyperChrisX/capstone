@@ -2,7 +2,7 @@
 session_start();
 $role = $_SESSION['sess_userrole'];
 
-if(!isset($_SESSION['sess_username']) && $role != "Admin")
+if(!isset($_SESSION['sess_username']) && $role != "Admn")
 {
 	header('location: index.php?err=2');	
 }
@@ -18,7 +18,7 @@ if(!isset($_SESSION['sess_username']) && $role != "Admin")
     <title>Bootstrap 101 Template</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
   </head>

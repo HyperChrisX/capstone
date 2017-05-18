@@ -1,3 +1,6 @@
+<?php 
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,11 +17,23 @@
 		}
 	</style>
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
   </head>
 <body>
-<?php include("nav.php"); ?>
+<?php
+
+    if(isset($_SESSION['sess_user_id']))
+    {
+        include('nav_login.php');   
+    }
+
+    else
+    {
+        include('nav.php');
+    }
+
+?>
     <div class="container">
       <div class="info">
         <div class="row">
