@@ -38,6 +38,7 @@ session_start();
       <div class="info">
         <div class="row">
           <div class="col-md-12">
+            <br /><br />
             <h1 style="font-size:50px; color: white;"> DELL</h1>
             <h2 class="text-muted"> Please sign-up or login. </h2>
           </div>

@@ -2,15 +2,19 @@
 session_start();
 $role = $_SESSION['sess_userrole'];
 
-if(!isset($_SESSION['sess_username']) && $role != "User")
+if(!isset($_SESSION['sess_username']))
 {
 	header('location: login_home.php?err=2');	
+}
+
+elseif($role == "Admn")
+{
+	header('location: adminhome.php');	
 }
 
 else
 {
     include('database-config.php');
-    
 }
 ?>
 <!DOCTYPE html> 
@@ -100,7 +104,7 @@ else
             <div class="row">
                 <br />
                     <div class="table-responsive">
-                        <table class="table table-hover table-striped">
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <td>ID</td>
