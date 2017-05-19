@@ -99,7 +99,7 @@ elseif(isset($_GET['remid']))
         $remove_appt = $db->prepare($remQ);
         $remove_appt -> execute();
 
-        header("location: index.php?err=0");
+        header("location: userhome.php?err=1");
 
     }
     catch(PDOException $e) {echo 'Error: ' . $e->getMessage();}

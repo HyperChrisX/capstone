@@ -57,7 +57,7 @@ else
 
                         $errors = array( 0=>"Project added successfully, you may edit or remove it below.",
 
-									   	 1=>"Duplicate service attempted. Please check below.",
+									   	 1=>"Removed successfully",
 
 										 2=>"Service status changed successfully.");
 
