@@ -8,7 +8,7 @@
 //try to connect to database
 $db = new PDO('mysql:host='.$host.'; dbname='.$database, $user, $pass);
 
-if(!db)
+if(!$db)
 {
 	echo "unable to connect to database";
 }

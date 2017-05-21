@@ -10,8 +10,8 @@ if(!isset($_SESSION['sess_username']))
 elseif($role == "Admn")
 {
 	header('location: adminhome.php');	
+    exit();
 }
-
 else
 {
     include('database-config.php');
@@ -155,7 +155,9 @@ else
                                                     <?php 
                                                     
                                                         $editjs = "window.location.href='add_edit.php?id=$proj_id'"; 
-                                                        $remjs = "window.location.href='add_edit.php?remid=$proj_id'"; 
+                                                        $remjs = "if (confirm('Are you sure you want to delete this?') == true) {
+                                                                window.location.href='add_edit.php?remid=$proj_id';
+                                                                }"; 
                                                     
                                                     ?>
                                                     <button type='button' class='btn btn-primary' onclick="<?php echo $editjs; ?>">Change</button>

@@ -20,7 +20,7 @@ if(isset($_GET['id']))
         $current_user = $_SESSION['sess_username'];
     }
 
-    $q = "SELECT * FROM users WHERE ProjI =:proj_id AND username=:user";
+    $q = "SELECT * FROM users WHERE ProjID =:proj_id AND username=:user";
     $query = $db->prepare($q);
     $query -> bindParam(':proj_id', $proj_id, PDO::PARAM_INT);
     $query -> bindParam(':user', $current_user, PDO::PARAM_STR);
@@ -50,7 +50,7 @@ elseif(isset($_GET['cid']) && $_GET['cid']!=0)
         $current_user = $_SESSION['sess_username'];
     }
 
-    $query = $db->prepare("UPDATE users SET ProjectName=:name Indate=:pdate comment=:comm WHERE id=:proj_id AND username=:user");
+    $query = $db->prepare("UPDATE users SET ProjectName=:name Indate=:pdate comment=:comm WHERE ProjID=:proj_id AND username=:user");
     $query -> bindParam(':user', $current_user, PDO::PARAM_STR);
     $query -> bindParam(':name', $proj_name, PDO::PARAM_STR);
     $query -> bindParam(':pdate', $date, PDO::PARAM_STR);
@@ -97,12 +97,11 @@ elseif(isset($_POST['submit']))
         $comm = $_POST['comment'];
 
         $insQ = "INSERT INTO users (ProjID, username, Indate, ProjectName, comment) VALUES (:proj_id, '$current_user', :pdate, :name, :comm) ";
+		$insQuery = $db->prepare($insQ);
         $insQuery -> bindParam(':name', $proj_name, PDO::PARAM_STR);
         $insQuery -> bindParam(':pdate', $date, PDO::PARAM_STR);
         $insQuery -> bindParam(':comm', $comm, PDO::PARAM_STR);
         $insQuery -> bindParam(':proj_id', $proj_id, PDO::PARAM_INT);
-		$insQuery = $db->prepare($insQ);
-
 		$insQuery->execute(); 
 
 		if($_SESSION['sess_userrole'] == 'Admn')
@@ -137,17 +136,17 @@ elseif(isset($_GET['remid']))
 
         $remQ = "DELETE FROM users WHERE ProjID=:appt_to_remove AND username=:user";
         $remove_appt = $db->prepare($remQ);
-        $query -> bindParam(':user', $current_user, PDO::PARAM_STR);
+        $remove_appt -> bindParam(':user', $current_user, PDO::PARAM_STR);
         $remove_appt -> bindParam(':appt_to_remove', $appt_to_remove, PDO::PARAM_INT);
         $remove_appt -> execute();
 
         if($_SESSION['sess_userrole'] == 'Admn')
         {
-            header("location: adminhome.php?err=1&id=$proj_id");
+            header("location: adminhome.php?err=1");
         }
         else
         {
-            header("location: userhome.php?err=1&id=$proj_id");
+            header("location: userhome.php?err=1");
         }
 
     }
@@ -254,7 +253,7 @@ elseif(isset($_GET['remid']))
             if(isset($_GET['id']) && $_SESSION['sess_userrole']=='Admn')
             {?>
             <p>User:</p> 
-                <input type="text" name="user" class="form-control" value="<?php if(isset($_GET['id'])){ echo $proj_user; }?>" disabled>
+                <input type="text" name="user" class="form-control" value="<?php if(isset($_GET['id'])){ echo $current_user; }?>" disabled>
             <br />
             <?php } ?>
 

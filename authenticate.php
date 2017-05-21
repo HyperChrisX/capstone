@@ -22,8 +22,6 @@ if(isset($_POST['password']))
 
 	$password = $_POST['password'];
 
-	$enc_pass = password_hash($password);	
-
 }
 
 

@@ -57,9 +57,9 @@ else
 
                         $errors = array( 0=>"Project added successfully, you may edit or remove it below.",
 
-									   	 1=>"Duplicate service attempted. Please check below.",
+									   	 1=>"Project removed successfully.",
 
-										 2=>"Service status changed successfully.");
+										 2=>"Project changed successfully.");
 
                                 
 
@@ -91,7 +91,7 @@ else
 
                         {
 
-                          echo'<p class="text-danger">'.$errors[$error_id].'</p>';
+                          echo'<p class="text-success">'.$errors[$error_id].'</p>';
 
                         }
 
@@ -150,7 +150,9 @@ else
                                                     <?php 
                                                     
                                                         $editjs = "window.location.href='add_edit.php?id=$proj_id&uid=$proj_uname'"; 
-                                                        $remjs = "window.location.href='add_edit.php?remid=$proj_id&uid=$proj_uname'"; 
+                                                        $remjs = "if (confirm('Are you sure you want to delete this?') == true) {
+                                                                window.location.href='add_edit.php?remid=$proj_id&uid=$proj_uname';
+                                                                }"; 
                                                     
                                                     ?>
                                                     <button type='button' class='btn btn-primary' onclick="<?php echo $editjs; ?>">Change</button>
