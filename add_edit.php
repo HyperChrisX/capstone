@@ -11,19 +11,28 @@ if(!isset($_SESSION['sess_user_id']))
 if(isset($_GET['id']))
 {
     $proj_id = $_GET['id'];
+    if($_SESSION['sess_userrole']=='Admn')
+    {
+        $current_user = $_GET['uid'];
+    }
+    else
+    {
+        $current_user = $_SESSION['sess_username'];
+    }
 
-    $q = "SELECT * FROM users WHERE id = '$proj_id'";
-
+    $q = "SELECT * FROM users WHERE ProjI =:proj_id AND username=:user";
     $query = $db->prepare($q);
+    $query -> bindParam(':proj_id', $proj_id, PDO::PARAM_INT);
+    $query -> bindParam(':user', $current_user, PDO::PARAM_STR);
     $query->execute();
 
     $return = $query->fetch(PDO::FETCH_ASSOC);
 
-    $proj_id = $return['id'];
+    $proj_id = $return['ProjID'];
     $proj_name = $return['ProjectName'];
     $proj_date = $return['Indate'];
     $comment = $return['comment'];
-    $current_user = $_SESSION['sess_username'];
+    $current_user = $return['username'];
 }
 
 elseif(isset($_GET['cid']) && $_GET['cid']!=0)
@@ -32,12 +41,24 @@ elseif(isset($_GET['cid']) && $_GET['cid']!=0)
     $proj_name = $_POST['name'];
 	$date = $_POST['date'];
     $comm = $_POST['comment'];
+    if($_SESSION['sess_userrole'] == 'Admn')
+    {
+        $current_user = $_POST['user'];
+    }
+    else
+    {
+        $current_user = $_SESSION['sess_username'];
+    }
 
-
-    $query = $db->prepare("UPDATE users SET ProjectName='$proj_name' Indate='$date' comment='$comm' WHERE id=$proj_id");
+    $query = $db->prepare("UPDATE users SET ProjectName=:name Indate=:pdate comment=:comm WHERE id=:proj_id AND username=:user");
+    $query -> bindParam(':user', $current_user, PDO::PARAM_STR);
+    $query -> bindParam(':name', $proj_name, PDO::PARAM_STR);
+    $query -> bindParam(':pdate', $date, PDO::PARAM_STR);
+    $query -> bindParam(':comm', $comm, PDO::PARAM_STR);
+    $query -> bindParam(':proj_id', $proj_id, PDO::PARAM_INT);
     $query -> execute();
 
-    if($_SESSION['sess_userrole'] == 'admn')
+    if($_SESSION['sess_userrole'] == 'Admn')
     {
         header("location: adminhome.php?err=2&id=$proj_id");
     }
@@ -54,11 +75,14 @@ elseif(isset($_POST['submit']))
     {
 
 		$proj_name = $_POST['name'];
-
+        
 		$proj_id = $_POST['id'];
 
-        $q = "SELECT * FROM users WHERE id = '$proj_id'";
+        $current_user = $_SESSION['sess_username'];
+
+        $q = "SELECT * FROM users WHERE ProjID = :proj_id AND username = '$current_user' ";
         $query = $db->prepare($q);
+        $query -> bindParam(':proj_id', $proj_id, PDO::PARAM_INT);
         $query->execute();
 
         if($query->rowCount() != 0)
@@ -70,18 +94,25 @@ elseif(isset($_POST['submit']))
         }
 
 		$date = $_POST['date'];
-
         $comm = $_POST['comment'];
 
-        $current_user = $_SESSION['sess_username'];
-
-        $insQ = "INSERT INTO users (id, username, Indate, ProjectName, comment) VALUES ('$proj_id', '$current_user', '$date', '$proj_name', '$comm') ";
-
+        $insQ = "INSERT INTO users (ProjID, username, Indate, ProjectName, comment) VALUES (:proj_id, '$current_user', :pdate, :name, :comm) ";
+        $insQuery -> bindParam(':name', $proj_name, PDO::PARAM_STR);
+        $insQuery -> bindParam(':pdate', $date, PDO::PARAM_STR);
+        $insQuery -> bindParam(':comm', $comm, PDO::PARAM_STR);
+        $insQuery -> bindParam(':proj_id', $proj_id, PDO::PARAM_INT);
 		$insQuery = $db->prepare($insQ);
 
 		$insQuery->execute(); 
 
-		header('location: userhome.php?err=0'); 
+		if($_SESSION['sess_userrole'] == 'Admn')
+        {
+            header("location: adminhome.php?err=0&id=$proj_id");
+        }
+        else
+        {
+            header("location: userhome.php?err=0&id=$proj_id");
+        }
 
 	}
 
@@ -94,12 +125,30 @@ elseif(isset($_GET['remid']))
     try
     {
         $appt_to_remove = $_GET['remid'];
+        if($_SESSION['sess_userrole']=='Admn')
+        {
+            $current_user = $_GET['uid'];
+        }
+        else
+        {
+            $current_user = $_SESSION['sess_username'];
+        }
 
-        $remQ = "DELETE FROM users WHERE id = '$appt_to_remove'";
+
+        $remQ = "DELETE FROM users WHERE ProjID=:appt_to_remove AND username=:user";
         $remove_appt = $db->prepare($remQ);
+        $query -> bindParam(':user', $current_user, PDO::PARAM_STR);
+        $remove_appt -> bindParam(':appt_to_remove', $appt_to_remove, PDO::PARAM_INT);
         $remove_appt -> execute();
 
-        header("location: userhome.php?err=1");
+        if($_SESSION['sess_userrole'] == 'Admn')
+        {
+            header("location: adminhome.php?err=1&id=$proj_id");
+        }
+        else
+        {
+            header("location: userhome.php?err=1&id=$proj_id");
+        }
 
     }
     catch(PDOException $e) {echo 'Error: ' . $e->getMessage();}
@@ -196,11 +245,19 @@ elseif(isset($_GET['remid']))
             <input name="name" type="text" class="form-control" placeholder="Enter Name" value="<?php if(isset($_GET['id'])){ echo $proj_name; }?>" required>
         <br />
         <p>Project ID#:</p> 
-            <input name="id" type="num" class="form-control" placeholder="Enter ID #" value="<?php if(isset($_GET['id'])){ echo $proj_id; }?>" required <?php if(isset($_GET['id'])){echo 'disabled';} ?>>
+            <input name="id" type="number" class="form-control" placeholder="Enter ID #" value="<?php if(isset($_GET['id'])){ echo $proj_id; }?>" required>
         <br />
         <p>Date:</p> 
             <input type="date" name="date" class="form-control" value="<?php if(isset($_GET['id'])){ echo $proj_date; }?>">
         <br />
+        <?php 
+            if(isset($_GET['id']) && $_SESSION['sess_userrole']=='Admn')
+            {?>
+            <p>User:</p> 
+                <input type="text" name="user" class="form-control" value="<?php if(isset($_GET['id'])){ echo $proj_user; }?>" disabled>
+            <br />
+            <?php } ?>
+
         <p>Comment:</p> 
             <textarea name="comment" class="form-control" placeholder="Description goes here..." rows="4" cols="50"><?php if(isset($_GET['id'])){ echo $comment; }?></textarea>
         <br />

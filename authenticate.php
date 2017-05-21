@@ -34,7 +34,9 @@ $q = 'SELECT * FROM caps WHERE username=:username';
 
 $query = $db->prepare($q);
 
-$query->execute(array(':username' => $username));
+$query -> bindParam(':username', $username, PDO::PARAM_STR);
+
+$query->execute();
 
 
 

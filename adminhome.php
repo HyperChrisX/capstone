@@ -125,7 +125,7 @@ else
                                     while($data = $result->fetch(PDO::FETCH_ASSOC))
                                     { 
                                         $proj_indate = $data['Indate'];
-                                        $proj_id = $data['id'];
+                                        $proj_id = $data['ProjID'];
                                         $proj_uname = $data['username'];
                                         $proj_name = $data['ProjectName'];
                                         $proj_comment = $data['comment'];
@@ -149,8 +149,8 @@ else
                                             <div class="btn-group btn-group-md">
                                                     <?php 
                                                     
-                                                        $editjs = "window.location.href='add_edit.php?id=$proj_id'"; 
-                                                        $remjs = "window.location.href='add_edit.php?remid=$proj_id'"; 
+                                                        $editjs = "window.location.href='add_edit.php?id=$proj_id&uid=$proj_uname'"; 
+                                                        $remjs = "window.location.href='add_edit.php?remid=$proj_id&uid=$proj_uname'"; 
                                                     
                                                     ?>
                                                     <button type='button' class='btn btn-primary' onclick="<?php echo $editjs; ?>">Change</button>

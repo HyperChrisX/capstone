@@ -119,7 +119,7 @@ else
                                     #Populate Table
                                     /*Create Arrays*/
                                     $current_user = $_SESSION["sess_username"];
-                                    $result = $db->prepare(" SELECT users.id
+                                    $result = $db->prepare(" SELECT users.ProjID
                                                                     , users.ProjectName
                                                                     , users.Indate
                                                                     , users.comment
@@ -132,7 +132,7 @@ else
                                     while($data = $result->fetch(PDO::FETCH_ASSOC))
                                     { 
                                         $proj_indate = $data['Indate'];
-                                        $proj_id = $data['id'];
+                                        $proj_id = $data['ProjID'];
                                         $proj_name = $data['ProjectName'];
                                         $proj_comment = $data['comment'];
 
